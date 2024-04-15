@@ -3,6 +3,7 @@ const defUrl = process.env.DEFURL;
 const authNameWrapper = document.getElementById('img-auth');
 const cryptoWrapper = document.getElementById('crypto-top');
 const cryptoElement = document.getElementById('crypto');
+const timeWrapper = document.getElementById('time');
 
 fetch(url)
 	.then((res) => res.json())
@@ -36,3 +37,11 @@ fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
 		`;
 	})
 	.catch((err) => console.log(err));
+
+const updateClock = () => {
+	const date = new Date();
+	timeWrapper.innerHTML = date.toLocaleTimeString('en-us', {
+		timeStyle: 'short',
+	});
+};
+setInterval(updateClock, 1000);
