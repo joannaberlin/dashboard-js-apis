@@ -40,8 +40,13 @@ main {
 	font-size: 1.3rem;
 }
 
+#crypto p {
+	margin: 0;
+}
+
 #crypto-top {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
+	margin-bottom: 5px;
 }
