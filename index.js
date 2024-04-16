@@ -1,5 +1,6 @@
 const url = process.env.URL;
-const defUrl = process.env.DEFURL;
+const defUrl = process.env.DEF_URL;
+const weatherApiKey = process.env.API_KEY;
 const authNameWrapper = document.getElementById('img-auth');
 const cryptoWrapper = document.getElementById('crypto-top');
 const cryptoElement = document.getElementById('crypto');
@@ -45,3 +46,17 @@ const updateClock = () => {
 	});
 };
 setInterval(updateClock, 1000);
+
+navigator.geolocation.getCurrentPosition((position) => {
+	fetch(
+		`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${weatherApiKey}&units=metric`
+	)
+		.then((res) => {
+			if (!res.ok) {
+				throw Error('Weather data not available');
+			}
+			return res.json();
+		})
+		.then((data) => console.log(data))
+		.catch((err) => console.log(err));
+});
