@@ -5,6 +5,7 @@ const authNameWrapper = document.getElementById('img-auth');
 const cryptoWrapper = document.getElementById('crypto-top');
 const cryptoElement = document.getElementById('crypto');
 const timeWrapper = document.getElementById('time');
+const weatherWrapper = document.getElementById('weather');
 
 fetch(url)
 	.then((res) => res.json())
@@ -57,6 +58,18 @@ navigator.geolocation.getCurrentPosition((position) => {
 			}
 			return res.json();
 		})
-		.then((data) => console.log(data))
+		.then((data) => {
+			console.log(data);
+			const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+			const temperature = Math.round(data.main.temp);
+			const city = data.name;
+			weatherWrapper.innerHTML = `
+				<div>
+					<img src=${iconUrl} alt="weather icon" />
+					<p>${temperature}º</p>
+				</div>
+				<p>${city}</p>
+			`;
+		})
 		.catch((err) => console.log(err));
 });
